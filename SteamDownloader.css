@@ -1,5 +1,3 @@
-/* CSS harmonisé pour SteamCMD Workshop Downloader */
-
 /* Variables CSS pour cohérence */
 :root {
     --primary-color: #66c0f4;
@@ -27,15 +25,211 @@ body {
     background: var(--background-gradient);
     min-height: 100vh;
     color: var(--text-color);
-    padding: 20px;
     line-height: 1.6;
+}
+
+/* Navigation optimisée */
+.navbar {
+    background: var(--glass-background);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--glass-border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 0 20px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0; /* Réduit de 15px à 8px */
+    height: 60px; /* Hauteur fixe pour plus de cohérence */
+}
+
+.nav-logo {
+    font-size: 1.4rem; /* Réduit de 1.5rem */
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition);
+}
+
+.nav-logo:hover {
+    transform: scale(1.05);
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 20px; /* Réduit de 30px à 20px */
+    align-items: center;
+}
+
+.nav-item {
+    position: relative;
+}
+
+.nav-link {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem; /* Légèrement plus petit */
+    transition: var(--transition);
+    padding: 6px 12px; /* Réduit de 8px 15px */
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px; /* Réduit de 8px */
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.nav-link:hover::before,
+.nav-link.active::before {
+    width: 80%;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--primary-color);
+    background: rgba(102, 192, 244, 0.08);
+    transform: translateY(-1px);
+}
+
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: var(--transition);
+}
+
+.nav-toggle:hover {
+    background: rgba(102, 192, 244, 0.1);
+}
+
+.nav-toggle span {
+    width: 22px; /* Réduit de 25px */
+    height: 2px; /* Réduit de 3px */
+    background: var(--text-color);
+    margin: 2px 0; /* Réduit de 3px */
+    transition: var(--transition);
+    border-radius: 1px;
+}
+
+.language-selector {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.language-selector select {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--glass-border);
+    color: var(--text-color);
+    padding: 4px 8px; /* Réduit de 5px 10px */
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.language-selector select:hover {
+    border-color: var(--primary-color);
+    background: rgba(0, 0, 0, 0.8);
+}
+
+/* Responsive design optimisé */
+@media (max-width: 768px) {
+    .nav-container {
+        height: 55px; /* Légèrement plus petit sur mobile */
+    }
+    
+    .nav-menu {
+        position: fixed;
+        top: 55px; /* Ajusté à la nouvelle hauteur */
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 55px);
+        background: var(--glass-background);
+        backdrop-filter: blur(15px);
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 40px;
+        transition: var(--transition);
+        gap: 15px;
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .nav-toggle {
+        display: flex;
+    }
+
+    .nav-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(4px, 4px);
+    }
+
+    .nav-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .nav-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    .language-selector {
+        position: absolute;
+        top: 15px;
+        right: 60px;
+    }
+
+    .nav-link {
+        padding: 8px 20px;
+        font-size: 1rem;
+    }
 }
 
 /* Container principal */
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 40px 20px;
+}
+
+/* Pages */
+.page {
+    display: none;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.page.active {
+    display: block;
 }
 
 /* Header styles */
@@ -62,50 +256,6 @@ body {
     font-size: 1.2rem;
     opacity: 0.8;
     margin: 0;
-}
-
-/* Choice container (pour la page d'accueil) */
-.choice-container {
-    display: flex;
-    gap: 30px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 40px;
-}
-
-.choice-card {
-    background: var(--glass-background);
-    border-radius: 15px;
-    padding: 40px 30px;
-    min-width: 250px;
-    max-width: 320px;
-    border: 2px solid var(--glass-border);
-    cursor: pointer;
-    transition: var(--transition);
-    backdrop-filter: blur(10px);
-    text-align: center;
-}
-
-.choice-card:hover {
-    transform: var(--hover-transform);
-    border-color: var(--primary-color);
-    box-shadow: 0 10px 30px rgba(102, 192, 244, 0.2);
-}
-
-.choice-icon {
-    font-size: 3rem;
-    margin-bottom: 10px;
-}
-
-.choice-title {
-    font-size: 1.4rem;
-    color: var(--primary-color);
-    margin-bottom: 10px;
-}
-
-.choice-description {
-    font-size: 1rem;
-    opacity: 0.85;
 }
 
 /* Sections principales */
@@ -151,7 +301,8 @@ body {
 }
 
 .input-group input,
-.input-group select {
+.input-group select,
+.input-group textarea {
     width: 100%;
     padding: 12px 15px;
     background: rgba(0, 0, 0, 0.5);
@@ -160,16 +311,24 @@ body {
     color: var(--text-color);
     font-size: 1rem;
     transition: var(--transition);
+    font-family: inherit;
+}
+
+.input-group textarea {
+    resize: vertical;
+    min-height: 120px;
 }
 
 .input-group input:focus,
-.input-group select:focus {
+.input-group select:focus,
+.input-group textarea:focus {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(102, 192, 244, 0.1);
 }
 
-.input-group input::placeholder {
+.input-group input::placeholder,
+.input-group textarea::placeholder {
     color: rgba(199, 213, 224, 0.5);
 }
 
@@ -376,115 +535,172 @@ body {
     margin-top: 15px;
 }
 
+/* Article styles */
+.article-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.article-content h2 {
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.article-content p {
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+.article-content ul, .article-content ol {
+    margin-bottom: 20px;
+    padding-left: 30px;
+}
+
+.article-content li {
+    margin-bottom: 10px;
+}
+
+.highlight-box {
+    background: rgba(102, 192, 244, 0.1);
+    border: 1px solid var(--primary-color);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 25px 0;
+}
+
+.highlight-box h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+}
+
+/* Contact form */
+.contact-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.contact-card {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid var(--glass-border);
+    text-align: center;
+}
+
+.contact-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.contact-card i {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+/* Footer */
+.footer {
+    background: var(--glass-background);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid var(--glass-border);
+    padding: 40px 20px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.footer-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer-links a:hover {
+    color: var(--primary-color);
+}
+
 /* Animations */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-.section {
-    animation: fadeIn 0.5s ease-out;
-}
-
 /* Responsive design */
 @media (max-width: 768px) {
-    .container {
-        padding: 0 10px;
+    .nav-menu {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background: var(--glass-background);
+        backdrop-filter: blur(10px);
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 50px;
+        transition: var(--transition);
+        gap: 20px;
     }
-    
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .nav-toggle {
+        display: flex;
+    }
+
+    .nav-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .nav-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .nav-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+    .language-selector {
+        position: absolute;
+        top: 20px;
+        right: 70px;
+    }
+
+    .container {
+        padding: 20px 10px;
+    }
+
     .header h1 {
         font-size: 2rem;
     }
-    
-    .header p {
-        font-size: 1rem;
-    }
-    
-    .choice-container {
-        gap: 20px;
-    }
-    
-    .choice-card {
-        min-width: 200px;
-        padding: 30px 20px;
-    }
-    
+
     .section {
         padding: 20px;
     }
-    
+
     .tabs {
         flex-direction: column;
     }
-    
-    .tab {
-        border-radius: 0;
-        border-bottom: 1px solid var(--glass-border);
-    }
-    
-    .tab.active {
-        border-bottom-color: var(--primary-color);
-    }
-    
-    .code-block {
-        font-size: 0.85rem;
-        padding: 15px;
-    }
-    
-    .game-list {
-        grid-template-columns: 1fr;
-    }
-    
-    .btn {
-        width: 100%;
-        margin-right: 0;
-        margin-bottom: 10px;
-    }
-    
-    .copy-btn {
-        position: static;
-        margin-bottom: 10px;
-        width: 100%;
-    }
-    
-    .command-output {
-        padding-top: 60px;
-    }
-}
 
-@media (max-width: 480px) {
-    .header {
-        padding: 20px;
-    }
-    
-    .header h1 {
-        font-size: 1.8rem;
-    }
-    
-    .choice-card {
-        min-width: 150px;
-        padding: 25px 15px;
-    }
-    
-    .choice-icon {
-        font-size: 2.5rem;
-    }
-    
-    .choice-title {
-        font-size: 1.2rem;
-    }
-    
-    .section {
-        padding: 15px;
-    }
-    
-    .tutorial-step {
-        padding: 15px;
+    .footer-links {
+        flex-direction: column;
+        gap: 15px;
     }
 }
 
@@ -498,69 +714,4 @@ a {
 a:hover {
     color: #ffffff;
     text-decoration: underline;
-}
-
-/* Scrollbar personnalisée */
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.3);
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--primary-color);
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #4a9eff;
-}
-
-/* Loader animation */
-.loader {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 15px;
-    background: #1a1a1a;
-    border-radius: 8px;
-    margin: 15px 0;
-}
-
-.loader-spinner {
-    width: 20px;
-    height: 20px;
-    border: 2px solid var(--primary-color);
-    border-top: 2px solid transparent;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-/* Améliorations visuelles */
-.section:hover {
-    border-color: rgba(102, 192, 244, 0.5);
-}
-
-.tutorial-step:hover {
-    background: rgba(0, 0, 0, 0.3);
-}
-
-/* Focus states améliorés */
-.btn:focus,
-.input-group input:focus,
-.input-group select:focus,
-.tab:focus {
-    outline: 2px solid var(--primary-color);
-    outline-offset: 2px;
-}
-
-/* Transitions fluides pour tous les éléments interactifs */
-.section,
-.tutorial-step,
-.game-item,
-.copy-btn,
-.tab {
-    transition: var(--transition);
 }
