@@ -5,250 +5,745 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SteamCMD Workshop Downloader</title>
     <link rel="stylesheet" href="SteamDownloader.css">
+    <link rel="stylesheet" href="SteamDownloaderOther.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9045061450653870"
      crossorigin="anonymous"></script>
 </head>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SteamCMD Workshop Downloader</title>
+    <link rel="stylesheet" href="styles.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9045061450653870" crossorigin="anonymous"></script>
+</head>
 <body>
-    <div class="language-selector">
-        <select id="languageSelector" onchange="changeLanguage(this.value)">
-            <option value="fr">🇫🇷 Français</option>
-            <option value="en">🇬🇧 English</option>
-        </select>
-    </div>
-
-    <div class="container">
-        <div class="header">
-            <h1 data-translate="header.title">🎮 SteamCMD Workshop Generator</h1>
-            <p data-translate="header.subtitle">Générez des commandes SteamCMD pour télécharger des mods Steam Workshop</p>
-        </div>
-
-        <!-- Générateur de commandes -->
-        <div class="section">
-            <h2 data-translate="generator.title">🔧 Générateur de Commandes</h2>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo" onclick="showPage('home')">
+                🎮 SteamCMD Generator
+            </a>
             
-            <div class="input-group">
-                <label for="workshopUrl" data-translate="generator.workshop_url">Lien Steam Workshop :</label>
-                <input type="url" id="workshopUrl" data-translate-placeholder="generator.workshop_url_placeholder" placeholder="https://steamcommunity.com/sharedfiles/filedetails/?id=2619072426" value="https://steamcommunity.com/sharedfiles/filedetails/?id=2619072426&searchtext=">
-            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="showPage('home')" data-translate="nav.home">
+                        🏠 Accueil
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="showPage('guide')" data-translate="nav.guide">
+                        📚 Guide Complet
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="showPage('about')" data-translate="nav.about">
+                        ℹ️ À Propos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="showPage('contact')" data-translate="nav.contact">
+                        📧 Contact
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="showPage('legal')" data-translate="nav.legal">
+                        ⚖️ Mentions Légales
+                    </a>
+                </li>
+            </ul>
 
-            <div class="input-group">
-                <label for="appId" data-translate="generator.app_id">ID de l'application (optionnel - détecté automatiquement) :</label>
-                <select id="appId">
-                    <option value="auto" data-translate="generator.auto_detect">Détection automatique</option>
-                    <option value="108600">Project Zomboid (108600)</option>
-                    <option value="4000">Garry's Mod (4000)</option>
-                    <option value="294100">RimWorld (294100)</option>
-                    <option value="346110">ARK: Survival Evolved (346110)</option>
-                    <option value="107410">Arma 3 (107410)</option>
-                    <option value="570">Dota 2 (570)</option>
-                    <option value="440">Team Fortress 2 (440)</option>
-                    <option value="730">Counter-Strike: Global Offensive (730)</option>
+            <div class="language-selector">
+                <select id="languageSelector" onchange="changeLanguage(this.value)">
+                    <option value="fr">🇫🇷 Français</option>
+                    <option value="en">🇬🇧 English</option>
                 </select>
             </div>
 
-            <button class="btn" onclick="generateCommand()" data-translate="generator.generate_btn">⚡ Générer la Commande</button>
-            <button class="btn btn-secondary" onclick="detectGame()" data-translate="generator.detect_btn">🔍 Détecter le Jeu</button>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
 
-            <div id="commandOutput" class="output-section" style="display: none;">
-                <h3 style="color: #66c0f4; margin-bottom: 15px;" data-translate="generator.command_output">📋 Commande SteamCMD :</h3>
-                <div class="command-output" id="steamcmdCommand">
-                    <button class="copy-btn" onclick="copyCommand()" data-translate="generator.copy_btn">📋 Copier</button>
-                    <span id="commandText"></span>
+    <!-- PAGE ACCUEIL -->
+    <div id="home" class="page active">
+        <div class="container">
+            <div class="header">
+                <h1 data-translate="header.title">🎮 SteamCMD Workshop Generator</h1>
+                <p data-translate="header.subtitle">Générez des commandes SteamCMD pour télécharger des mods Steam Workshop</p>
+            </div>
+
+            <!-- Générateur de commandes -->
+            <div class="section">
+                <h2 data-translate="generator.title">🔧 Générateur de Commandes</h2>
+                
+                <div class="input-group">
+                    <label for="workshopUrl" data-translate="generator.workshop_url">Lien Steam Workshop :</label>
+                    <input type="url" id="workshopUrl" data-translate-placeholder="generator.workshop_url_placeholder" placeholder="https://steamcommunity.com/sharedfiles/filedetails/?id=2619072426" value="https://steamcommunity.com/sharedfiles/filedetails/?id=2619072426&searchtext=">
                 </div>
-                <div class="success" data-translate="generator.success">
-                    ✅ Commande générée ! Copiez-la et utilisez-la dans SteamCMD après vous être connecté.
+
+                <div class="input-group">
+                    <label for="appId" data-translate="generator.app_id">ID de l'application (optionnel - détecté automatiquement) :</label>
+                    <select id="appId">
+                        <option value="auto" data-translate="generator.auto_detect">Détection automatique</option>
+                        <option value="108600">Project Zomboid (108600)</option>
+                        <option value="4000">Garry's Mod (4000)</option>
+                        <option value="294100">RimWorld (294100)</option>
+                        <option value="346110">ARK: Survival Evolved (346110)</option>
+                        <option value="107410">Arma 3 (107410)</option>
+                        <option value="570">Dota 2 (570)</option>
+                        <option value="440">Team Fortress 2 (440)</option>
+                        <option value="730">Counter-Strike: Global Offensive (730)</option>
+                    </select>
+                </div>
+
+                <button class="btn" onclick="generateCommand()" data-translate="generator.generate_btn">⚡ Générer la Commande</button>
+                <button class="btn btn-secondary" onclick="detectGame()" data-translate="generator.detect_btn">🔍 Détecter le Jeu</button>
+
+                <div id="commandOutput" class="output-section" style="display: none;">
+                    <h3 style="color: #66c0f4; margin-bottom: 15px;" data-translate="generator.command_output">📋 Commande SteamCMD :</h3>
+                    <div class="command-output" id="steamcmdCommand">
+                        <button class="copy-btn" onclick="copyCommand()" data-translate="generator.copy_btn">📋 Copier</button>
+                        <span id="commandText"></span>
+                    </div>
+                    <div class="success" data-translate="generator.success">
+                        ✅ Commande générée ! Copiez-la et utilisez-la dans SteamCMD après vous être connecté.
+                    </div>
+                </div>
+            </div>
+
+            <!-- IDs de jeux populaires -->
+            <div class="section">
+                <h2 data-translate="games.title">🎮 IDs de Jeux Populaires</h2>
+                <div class="game-list">
+                    <div class="game-item"><strong>Project Zomboid:</strong> 108600</div>
+                    <div class="game-item"><strong>Garry's Mod:</strong> 4000</div>
+                    <div class="game-item"><strong>RimWorld:</strong> 294100</div>
+                    <div class="game-item"><strong>ARK: Survival Evolved:</strong> 346110</div>
+                    <div class="game-item"><strong>Arma 3:</strong> 107410</div>
+                    <div class="game-item"><strong>Cities: Skylines:</strong> 255710</div>
+                    <div class="game-item"><strong>Left 4 Dead 2:</strong> 550</div>
+                    <div class="game-item"><strong>Total War Warhammer III:</strong> 1142710</div>
+                    <div class="game-item"><strong>Wallpaper Engine:</strong> 431960</div>
+                    <div class="game-item"><strong>Euro Truck Simulator 2:</strong> 227300</div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Tutoriel d'installation -->
-        <div class="section">
-            <h2 data-translate="tutorial.title">📚 Guide d'Installation SteamCMD</h2>
-            
-            <div class="tabs">
-                <button class="tab active" onclick="showTab('windows')">🪟 Windows</button>
-                <button class="tab" onclick="showTab('linux')">🐧 Linux</button>
-                <button class="tab" onclick="showTab('mac')">🍎 macOS</button>
+    <!-- PAGE GUIDE COMPLET -->
+    <div id="guide" class="page">
+        <div class="container">
+            <div class="header">
+                <h1 data-translate="guide.title">📚 Guide Complet SteamCMD</h1>
+                <p data-translate="guide.subtitle">Tout ce que vous devez savoir sur SteamCMD et le téléchargement de mods</p>
             </div>
 
-            <!-- Windows -->
-            <div id="windows" class="tab-content active">
-                <div class="tutorial-step">
-                    <h4 data-translate="tutorial.windows.step1.title">1. Télécharger SteamCMD</h4>
-                    <p data-translate="tutorial.windows.step1.content">Téléchargez SteamCMD depuis le site officiel de Valve :</p>
-                    <div class="code-block">
-                        <button class="copy-btn" onclick="copyText('https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip')">📋</button>
-                        https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip
-                    </div>
+            <div class="section">
+                <div class="tabs">
+                    <button class="tab active" onclick="showTab('installation')">🔧 Installation</button>
+                    <button class="tab" onclick="showTab('usage')">📖 Utilisation</button>
+                    <button class="tab" onclick="showTab('advanced')">⚙️ Avancé</button>
+                    <button class="tab" onclick="showTab('troubleshooting')">🔧 Dépannage</button>
                 </div>
 
-                <div class="tutorial-step">
-                    <h4 data-translate="tutorial.windows.step2.title">2. Extraire et Installer</h4>
-                    <p data-translate="tutorial.windows.step2.content">• Créez un dossier <code>C:\steamcmd\</code><br>
-                    • Extrayez le fichier ZIP dans ce dossier<br>
-                    • Vous devriez avoir <code>C:\steamcmd\steamcmd.exe</code></p>
-                </div>
+                <div id="installation" class="tab-content active">
+                    <div class="article-content">
+                        <h2>🤔 Qu'est-ce que SteamCMD ?</h2>
+                        <p>
+                            SteamCMD (Steam Console Client) est un outil en ligne de commande développé par Valve Corporation qui permet d'installer et de mettre à jour des applications Steam sans utiliser l'interface graphique traditionnelle de Steam. Cette solution est particulièrement utile pour les administrateurs de serveurs, les développeurs, et les utilisateurs avancés qui souhaitent automatiser le téléchargement de contenu Steam.
+                        </p>
 
-                <div class="tutorial-step">
-                    <h4 data-translate="tutorial.windows.step3.title">3. Premier Lancement</h4>
-                    <p data-translate="tutorial.windows.step3.content">Ouvrez l'invite de commande en tant qu'administrateur et naviguez vers le dossier :</p>
-                    <div class="code-block">
-                        <button class="copy-btn" onclick="copyText('cd C:\\steamcmd\nsteamcmd.exe')">📋</button>
-                        cd C:\steamcmd
-steamcmd.exe
-                    </div>
-                </div>
+                        <div class="highlight-box">
+                            <h3>🔑 Fonctionnalités Clés</h3>
+                            <ul>
+                                <li>Téléchargement automatisé de jeux et mods</li>
+                                <li>Installation de serveurs dédiés</li>
+                                <li>Mise à jour automatique des applications</li>
+                                <li>Gestion par scripts et automatisation</li>
+                                <li>Fonctionnement sans interface graphique</li>
+                            </ul>
+                        </div>
 
-                <div class="tutorial-step">
-                    <h4 data-translate="tutorial.windows.step4.title">4. Connexion Anonyme</h4>
-                    <p data-translate="tutorial.windows.step4.content">Une fois SteamCMD lancé, connectez-vous anonymement :</p>
-                    <div class="code-block">
-                        <button class="copy-btn" onclick="copyText('login anonymous')">📋</button>
-                        login anonymous
-                    </div>
-                </div>
+                        <h2>💡 Pourquoi SteamCMD est-il Utile ?</h2>
+                        <p>
+                            SteamCMD présente plusieurs avantages significatifs par rapport au client Steam traditionnel. Tout d'abord, il consomme beaucoup moins de ressources système car il ne nécessite pas d'interface graphique. Cela le rend idéal pour les serveurs ou les environnements où les ressources sont limitées.
+                        </p>
 
-                <div class="tutorial-step">
-                    <h4 data-translate="tutorial.windows.step5.title">5. Télécharger un Mod</h4>
-                    <p data-translate="tutorial.windows.step5.content">Utilisez la commande générée ci-dessus. Exemple :</p>
-                    <div class="code-block">
-                        <button class="copy-btn" onclick="copyText('workshop_download_item 108600 2619072426\nquit')">📋</button>
-                        workshop_download_item 108600 2619072426
-quit
-                    </div>
-                    <p data-translate="tutorial.windows.step5.location"><strong>📁 Emplacement des mods :</strong> <code>C:\steamcmd\steamapps\workshop\content\[APP_ID]\[MOD_ID]\</code></p>
-                </div>
-            </div>
+                        <p>
+                            L'automatisation est l'un des principaux avantages de SteamCMD. Vous pouvez créer des scripts pour télécharger automatiquement des mods, mettre à jour des serveurs de jeux, ou gérer des collections entières de contenu Steam. Cette fonctionnalité est particulièrement précieuse pour les administrateurs de serveurs de jeux qui doivent maintenir leurs serveurs à jour avec les dernières versions des mods.
+                        </p>
 
-            <!-- Linux -->
-            <div id="linux" class="tab-content">
-                <div class="tutorial-step">
-                    <h4 data-translate="tutorial.linux.step1.title">1. Installation via le gestionnaire de paquets</h4>
-                    <p data-translate="tutorial.linux.step1.ubuntu"><strong>Ubuntu/Debian :</strong></p>
-                    <div class="code-block">
-                        <button class="copy-btn" onclick="copyText('sudo apt update\nsudo apt install steamcmd')">📋</button>
-                        sudo apt update
-sudo apt install steamcmd
-                    </div>
-                    <p data-translate="tutorial.linux.step1.arch"><strong>Arch Linux :</strong></p>
-                    <div class="code-block">
-                        <button class="copy-btn" onclick="copyText('sudo pacman -S steamcmd')">📋</button>
-                        sudo pacman -S steamcmd
-                    </div>
-                </div>
+                        <h2>📥 Installation de SteamCMD</h2>
+                        
+                        <h3>🪟 Windows</h3>
+                        <div class="tutorial-step">
+                            <h4>Étape 1 : Téléchargement</h4>
+                            <p>Téléchargez SteamCMD depuis le site officiel de Valve :</p>
+                            <p><a href="https://developer.valvesoftware.com/wiki/SteamCMD" target="_blank">https://developer.valvesoftware.com/wiki/SteamCMD</a></p>
+                        </div>
 
-                <div class="tutorial-step">
-                    <h4 data-translate="tutorial.linux.step2.title">2. Installation manuelle (si nécessaire)</h4>
-                    <div class="code-block">
-                        <button class="copy-btn" onclick="copyText('mkdir ~/steamcmd\ncd ~/steamcmd\nwget https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz\ntar -xvzf steamcmd_linux.tar.gz')">📋</button>
-                        mkdir ~/steamcmd
+                        <div class="tutorial-step">
+                            <h4>Étape 2 : Extraction</h4>
+                            <p>Créez un dossier (ex: <code>C:\steamcmd</code>) et extrayez le fichier <code>steamcmd.zip</code> dans ce dossier.</p>
+                        </div>
+
+                        <div class="tutorial-step">
+                            <h4>Étape 3 : Premier lancement</h4>
+                            <p>Ouvrez une invite de commande, naviguez vers le dossier SteamCMD et exécutez :</p>
+                            <div class="code-block">steamcmd.exe</div>
+                            <p>SteamCMD se mettra à jour automatiquement lors du premier lancement.</p>
+                        </div>
+
+                        <h3>🐧 Linux</h3>
+                        <div class="tutorial-step">
+                            <h4>Ubuntu/Debian</h4>
+                            <div class="code-block">sudo apt update
+sudo apt install steamcmd</div>
+                        </div>
+
+                        <div class="tutorial-step">
+                            <h4>Installation manuelle</h4>
+                            <div class="code-block">mkdir ~/steamcmd
 cd ~/steamcmd
 wget https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
 tar -xvzf steamcmd_linux.tar.gz
+./steamcmd.sh</div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="tutorial-step">
-                    <h4 data-translate="tutorial.linux.step3.title">3. Lancement et Connexion</h4>
-                    <div class="code-block">
-                        <button class="copy-btn" onclick="copyText('./steamcmd.sh\nlogin anonymous')">📋</button>
-                        ./steamcmd.sh
+                <div id="usage" class="tab-content">
+                    <div class="article-content">
+                        <h2>⚙️ Comment Fonctionne SteamCMD ?</h2>
+                        <p>
+                            SteamCMD fonctionne en se connectant directement aux serveurs de contenu de Steam via une interface en ligne de commande. Il utilise le même système d'authentification que Steam, ce qui signifie que vous pouvez vous connecter avec votre compte Steam ou utiliser une connexion anonyme pour certains types de contenu.
+                        </p>
+
+                        <div class="highlight-box">
+                            <h3>🔄 Flux de Travail Typique</h3>
+                            <ol>
+                                <li>Lancement de SteamCMD</li>
+                                <li>Connexion (anonyme ou avec compte)</li>
+                                <li>Sélection du répertoire d'installation</li>
+                                <li>Téléchargement du contenu souhaité</li>
+                                <li>Fermeture de SteamCMD</li>
+                            </ol>
+                        </div>
+
+                        <h2>📖 Commandes de Base</h2>
+                        
+                        <h3>Connexion</h3>
+                        <div class="tutorial-step">
+                            <h4>Connexion anonyme</h4>
+                            <div class="code-block">login anonymous</div>
+                            <p>Utilisé pour télécharger du contenu public comme les serveurs dédiés.</p>
+                        </div>
+
+                        <div class="tutorial-step">
+                            <h4>Connexion avec compte</h4>
+                            <div class="code-block">login nom_utilisateur mot_de_passe</div>
+                            <p>Nécessaire pour télécharger des mods ou du contenu privé.</p>
+                        </div>
+
+                        <h3>Téléchargement</h3>
+                        <div class="tutorial-step">
+                            <h4>Définir le répertoire d'installation</h4>
+                            <div class="code-block">force_install_dir C:\MonJeu\</div>
+                        </div>
+
+                        <div class="tutorial-step">
+                            <h4>Télécharger une application</h4>
+                            <div class="code-block">app_update 108600 validate</div>
+                            <p>Télécharge Project Zomboid (ID: 108600) et vérifie l'intégrité des fichiers.</p>
+                        </div>
+
+                        <div class="tutorial-step">
+                            <h4>Télécharger un mod Workshop</h4>
+                            <div class="code-block">workshop_download_item 108600 2619072426</div>
+                            <p>Télécharge le mod ID 2619072426 pour Project Zomboid.</p>
+                        </div>
+
+                        <h2>🎯 Exemples Pratiques</h2>
+                        
+                        <div class="tutorial-step">
+                            <h4>Télécharger un mod Project Zomboid</h4>
+                            <div class="code-block">steamcmd.exe
 login anonymous
-                    </div>
-                </div>
+force_install_dir C:\PZMods\
+workshop_download_item 108600 2619072426
+quit</div>
+                        </div>
 
-                <div class="tutorial-step">
-                    <h4 data-translate="tutorial.linux.step4.title">4. Télécharger un Mod</h4>
-                    <div class="code-block">
-                        <button class="copy-btn" onclick="copyText('workshop_download_item 108600 2619072426\nquit')">📋</button>
-                        workshop_download_item 108600 2619072426
-quit
-                    </div>
-                    <p data-translate="tutorial.linux.step4.location"><strong>📁 Emplacement des mods :</strong> <code>~/steamcmd/steamapps/workshop/content/[APP_ID]/[MOD_ID]/</code></p>
-                </div>
-            </div>
-
-            <!-- macOS -->
-            <div id="mac" class="tab-content">
-                <div class="tutorial-step">
-                    <h4 data-translate="tutorial.mac.step1.title">1. Télécharger SteamCMD</h4>
-                    <div class="code-block">
-                        <button class="copy-btn" onclick="copyText('mkdir ~/steamcmd\ncd ~/steamcmd\ncurl -sqL \"https://steamcdn-a.akamaihd.net/client/installer/steamcmd_osx.tar.gz\" | tar zxvf -')">📋</button>
-                        mkdir ~/steamcmd
-cd ~/steamcmd
-curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_osx.tar.gz" | tar zxvf -
-                    </div>
-                </div>
-
-                <div class="tutorial-step">
-                    <h4 data-translate="tutorial.mac.step2.title">2. Lancement et Connexion</h4>
-                    <div class="code-block">
-                        <button class="copy-btn" onclick="copyText('./steamcmd.sh\nlogin anonymous')">📋</button>
-                        ./steamcmd.sh
-login anonymous
-                    </div>
-                </div>
-
-                <div class="tutorial-step">
-                    <h4 data-translate="tutorial.mac.step3.title">3. Télécharger un Mod</h4>
-                    <div class="code-block">
-                        <button class="copy-btn" onclick="copyText('workshop_download_item 108600 2619072426\nquit')">📋</button>
-                        workshop_download_item 108600 2619072426
-quit
-                    </div>
-                    <p data-translate="tutorial.mac.step3.location"><strong>📁 Emplacement des mods :</strong> <code>~/steamcmd/steamapps/workshop/content/[APP_ID]/[MOD_ID]/</code></p>
-                </div>
-            </div>
-        </div>
-
-        <!-- IDs de jeux populaires -->
-        <div class="section">
-            <h2 data-translate="games.title">🎮 IDs de Jeux Populaires</h2>
-            <div class="game-list">
-                <div class="game-item"><strong>Project Zomboid:</strong> 108600</div>
-                <div class="game-item"><strong>Garry's Mod:</strong> 4000</div>
-                <div class="game-item"><strong>RimWorld:</strong> 294100</div>
-                <div class="game-item"><strong>ARK: Survival Evolved:</strong> 346110</div>
-                <div class="game-item"><strong>Arma 3:</strong> 107410</div>
-                <div class="game-item"><strong>Cities: Skylines:</strong> 255710</div>
-                <div class="game-item"><strong>Left 4 Dead 2:</strong> 550</div>
-                <div class="game-item"><strong>Total War Warhammer III:</strong> 1142710</div>
-                <div class="game-item"><strong>Wallpaper Engine:</strong> 431960</div>
-                <div class="game-item"><strong>Euro Truck Simulator 2:</strong> 227300</div>
-            </div>
-        </div>
-
-        <!-- Conseils -->
-        <div class="section">
-            <h2 data-translate="tips.title">💡 Conseils et Astuces</h2>
-            
-            <div class="warning">
-                <strong data-translate="tips.warning.title">⚠️ Important :</strong> <span data-translate="tips.warning.content">Certains mods nécessitent d'être connecté avec un compte Steam au lieu de "anonymous". Utilisez <code>login [username]</code> si le téléchargement anonyme échoue.</span>
-            </div>
-
-            <div class="tutorial-step">
-                <h4 data-translate="tips.useful_commands">🔄 Commandes Utiles</h4>
-                <p data-translate="tips.update_mod"><strong>Mettre à jour un mod :</strong></p>
-                <div class="code-block">workshop_download_item 108600 2619072426 validate</div>
-                
-                <p data-translate="tips.multiple_mods"><strong>Télécharger plusieurs mods :</strong></p>
-                <div class="code-block">workshop_download_item 108600 2619072426
-workshop_download_item 108600 1234567890
-workshop_download_item 108600 0987654321</div>
-
-                <p data-translate="tips.batch_script"><strong>Créer un script batch (Windows) :</strong></p>
-                <div class="code-block">@echo off
+                        <div class="tutorial-step">
+                            <h4>Script automatisé (Windows .bat)</h4>
+                            <div class="code-block">@echo off
 cd /d "C:\steamcmd"
-steamcmd.exe +login anonymous +workshop_download_item 108600 2619072426 +quit
+steamcmd.exe +login anonymous +force_install_dir "C:\PZMods\" +workshop_download_item 108600 2619072426 +quit
 pause</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="advanced" class="tab-content">
+                    <div class="article-content">
+                        <h2>🔧 Techniques Avancées</h2>
+                        
+                        <h3>📦 Téléchargement en Lot</h3>
+                        <div class="tutorial-step">
+                            <h4>Télécharger plusieurs mods</h4>
+                            <p>Créez un script pour télécharger plusieurs mods en une fois :</p>
+                            <div class="code-block">@echo off
+set STEAMCMD_PATH=C:\steamcmd
+set INSTALL_DIR=C:\PZMods
+set APP_ID=108600
+
+cd /d "%STEAMCMD_PATH%"
+
+REM Liste des IDs de mods
+set MODS=2619072426 2696083206 2169435993
+
+for %%i in (%MODS%) do (
+    echo Téléchargement du mod %%i...
+    steamcmd.exe +login anonymous +force_install_dir "%INSTALL_DIR%" +workshop_download_item %APP_ID% %%i +quit
+)
+
+echo Tous les mods ont été téléchargés !
+pause</div>
+                        </div>
+
+                        <h3>🔄 Automatisation avec Planificateur</h3>
+                        <div class="tutorial-step">
+                            <h4>Mise à jour automatique</h4>
+                            <p>Créez un script de mise à jour automatique :</p>
+                            <div class="code-block">@echo off
+cd /d "C:\steamcmd"
+steamcmd.exe +login anonymous +force_install_dir "C:\MonServeur\" +app_update 108600 validate +quit
+
+REM Redémarrer le serveur après mise à jour
+taskkill /F /IM "ProjectZomboid64.exe"
+start "Serveur PZ" "C:\MonServeur\ProjectZomboid64.exe"</div>
+                        </div>
+
+                        <h3>🔍 Vérification et Validation</h3>
+                        <div class="tutorial-step">
+                            <h4>Vérifier l'intégrité des fichiers</h4>
+                            <div class="code-block">app_update 108600 validate</div>
+                            <p>Le paramètre <code>validate</code> vérifie tous les fichiers et re-télécharge ceux qui sont corrompus.</p>
+                        </div>
+
+                        <h3>📊 Gestion des Logs</h3>
+                        <div class="tutorial-step">
+                            <h4>Activer les logs détaillés</h4>
+                            <div class="code-block">steamcmd.exe +@ShutdownOnFailedCommand 1 +@NoPromptForPassword 1 +login anonymous +force_install_dir "C:\MonJeu\" +app_update 108600 validate +quit > update_log.txt 2>&1</div>
+                        </div>
+
+                        <h2>🌍 Gestion Multi-Serveurs</h2>
+                        <div class="tutorial-step">
+                            <h4>Configuration pour plusieurs serveurs</h4>
+                            <div class="code-block">REM Serveur 1
+steamcmd.exe +login anonymous +force_install_dir "C:\Serveur1\" +app_update 108600 validate +quit
+
+REM Serveur 2  
+steamcmd.exe +login anonymous +force_install_dir "C:\Serveur2\" +app_update 108600 validate +quit
+
+REM Mise à jour des mods pour tous les serveurs
+for /d %%i in (C:\Serveur*) do (
+    steamcmd.exe +login anonymous +force_install_dir "%%i" +workshop_download_item 108600 2619072426 +quit
+)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="troubleshooting" class="tab-content">
+                    <div class="article-content">
+                        <h2>🔧 Problèmes Fréquents et Solutions</h2>
+                        
+                        <h3>❌ Erreur "Login Failure" (Échec de Connexion)</h3>
+                        <div class="tutorial-step">
+                            <h4>Solutions possibles :</h4>
+                            <ul>
+                                <li>Vérifiez vos identifiants Steam</li>
+                                <li>Désactivez temporairement l'authentification à deux facteurs</li>
+                                <li>Utilisez un code d'authentification Steam Guard</li>
+                                <li>Essayez "login anonymous" pour le contenu public</li>
+                            </ul>
+                            <div class="code-block">login nom_utilisateur mot_de_passe CODE_STEAM_GUARD</div>
+                        </div>
+
+                        <h3>❌ Mod Non Trouvé ou Inaccessible</h3>
+                        <div class="tutorial-step">
+                            <h4>Vérifications :</h4>
+                            <ul>
+                                <li>Vérifiez que l'ID du mod est correct</li>
+                                <li>Assurez-vous que le mod est public</li>
+                                <li>Certains mods nécessitent une connexion avec votre compte</li>
+                            </ul>
+                        </div>
+
+                        <h3>❌ Erreur "Disk Write Error"</h3>
+                        <div class="tutorial-step">
+                            <h4>Solutions :</h4>
+                            <ul>
+                                <li>Vérifiez l'espace disque disponible</li>
+                                <li>Lancez SteamCMD en tant qu'administrateur</li>
+                                <li>Vérifiez les permissions du dossier de destination</li>
+                                <li>Changez le répertoire d'installation</li>
+                            </ul>
+                        </div>
+
+                        <h3>❌ Téléchargement Lent ou Bloqué</h3>
+                        <div class="tutorial-step">
+                            <h4>Optimisations :</h4>
+                            <ul>
+                                <li>Changez de région de téléchargement</li>
+                                <li>Redémarrez SteamCMD</li>
+                                <li>Vérifiez votre connexion internet</li>
+                                <li>Utilisez un VPN si nécessaire</li>
+                            </ul>
+                            <div class="code-block">@sSteamCmdForcePlatformType windows
+@sSteamCmdForceInstallType server</div>
+                        </div>
+
+                        <h3>❌ Problèmes de Mise à Jour</h3>
+                        <div class="tutorial-step">
+                            <h4>Solutions :</h4>
+                            <ul>
+                                <li>Utilisez toujours le paramètre <code>validate</code></li>
+                                <li>Supprimez le cache SteamCMD : <code>steamcmd/steamapps/</code></li>
+                                <li>Réinstallez SteamCMD si nécessaire</li>
+                            </ul>
+                        </div>
+
+                        <h2>💡 Astuces et Bonnes Pratiques</h2>
+                        
+                        <div class="highlight-box">
+                            <h3>🎯 Conseils d'Utilisation</h3>
+                            <ul>
+                                <li><strong>Sauvegardez vos scripts</strong> : Créez des fichiers .bat réutilisables</li>
+                                <li><strong>Utilisez des chemins absolus</strong> : Évitez les problèmes de répertoire</li>
+                                <li><strong>Testez avec un seul mod</strong> : Avant de télécharger en masse</li>
+                                <li><strong>Documentez vos installations</strong> : Gardez une trace des IDs utilisés</li>
+                                <li><strong>Planifiez les mises à jour</strong> : Automatisez avec le Planificateur Windows</li>
+                            </ul>
+                        </div>
+
+                        <h3>📋 Checklist de Dépannage</h3>
+                        <div class="tutorial-step">
+                            <ol>
+                                <li>✅ SteamCMD est-il à jour ?</li>
+                                <li>✅ Avez-vous les bonnes permissions ?</li>
+                                <li>✅ L'ID du jeu/mod est-il correct ?</li>
+                                <li>✅ Possédez-vous le jeu requis ?</li>
+                                <li>✅ Y a-t-il suffisamment d'espace disque ?</li>
+                                <li>✅ Votre connexion internet est-elle stable ?</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE À PROPOS -->
+    <div id="about" class="page">
+        <div class="container">
+            <div class="header">
+                <h1>ℹ️ À Propos</h1>
+                <p>Découvrez notre mission et notre engagement envers la communauté Steam</p>
+            </div>
+
+            <div class="section">
+                <div class="article-content">
+                    <h2>🎯 Notre Mission</h2>
+                    <p>
+                        SteamCMD Workshop Generator est né d'une passion pour la communauté Steam et du désir de simplifier l'utilisation de SteamCMD. Notre objectif est de rendre accessible à tous les utilisateurs, qu'ils soient débutants ou experts, les outils nécessaires pour télécharger et gérer efficacement les mods Steam Workshop.
+                    </p>
+
+                    <h2>🛠️ Ce Que Nous Offrons</h2>
+                    <div class="highlight-box">
+                        <h3>🔧 Outils Gratuits</h3>
+                        <ul>
+                            <li><strong>Générateur de Commandes</strong> : Créez instantanément des commandes SteamCMD valides</li>
+                            <li><strong>Détection Automatique</strong> : Identifiez automatiquement les jeux à partir des liens Workshop</li>
+                            <li><strong>Guide Complet</strong> : Documentation détaillée et exemples pratiques</li>
+                            <li><strong>Support Multilingue</strong> : Interface disponible en français et anglais</li>
+                        </ul>
+                    </div>
+
+                    <h2>👥 Pour Qui ?</h2>
+                    <p>Notre outil s'adresse à une large gamme d'utilisateurs :</p>
+                    <ul>
+                        <li><strong>Administrateurs de Serveurs</strong> : Gérez facilement les mods de vos serveurs de jeu</li>
+                        <li><strong>Développeurs</strong> : Automatisez le téléchargement et la mise à jour des mods</li>
+                        <li><strong>Joueurs Passionnés</strong> : Découvrez et installez des mods en dehors du client Steam</li>
+                        <li><strong>Étudiants et Éducateurs</strong> : Apprenez les bases de la ligne de commande avec des outils concrets</li>
+                    </ul>
+
+                    <h2>🌟 Pourquoi Choisir Notre Outil ?</h2>
+                    <div class="highlight-box">
+                        <h3>✨ Avantages Uniques</h3>
+                        <ul>
+                            <li><strong>Simplicité</strong> : Interface intuitive, aucune installation requise</li>
+                            <li><strong>Fiabilité</strong> : Commandes testées et validées</li>
+                            <li><strong>Rapidité</strong> : Génération instantanée de commandes</li>
+                            <li><strong>Éducatif</strong> : Apprenez en utilisant avec notre guide détaillé</li>
+                            <li><strong>Communauté</strong> : Support actif et mises à jour régulières</li>
+                        </ul>
+                    </div>
+
+                    <h2>🔒 Sécurité et Confidentialité</h2>
+                    <p>
+                        Nous prenons la sécurité au sérieux. Notre générateur fonctionne entièrement côté client, ce qui signifie que vos données ne quittent jamais votre navigateur. Nous ne collectons, ne stockons, ni ne partageons aucune information personnelle ou lien Workshop que vous utilisez.
+                    </p>
+
+                    <h2>🚀 Évolution Future</h2>
+                    <p>
+                        Nous travaillons constamment à améliorer notre outil. Voici quelques fonctionnalités à venir :
+                    </p>
+                    <ul>
+                        <li>Support pour plus de jeux et plateformes</li>
+                        <li>Système de favoris pour les mods fréquemment utilisés</li>
+                        <li>Intégration avec les API Steam pour des informations enrichies</li>
+                        <li>Outils de gestion de collections de mods</li>
+                        <li>Support pour les serveurs Linux et macOS</li>
+                    </ul>
+
+                    <h2>🤝 Contribuer au Projet</h2>
+                    <p>
+                        Ce projet est ouvert à la collaboration. Si vous êtes développeur, designer, ou simplement passionné par les outils Steam, nous serions ravis de votre contribution. Vous pouvez nous aider de plusieurs façons :
+                    </p>
+                    <ul>
+                        <li>Signaler des bugs ou proposer des améliorations</li>
+                        <li>Ajouter des traductions dans d'autres langues</li>
+                        <li>Contribuer à la documentation</li>
+                        <li>Partager l'outil avec la communauté</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <h3>💝
+                        <p>
+                            Nous tenons à remercier tous ceux qui ont contribué à faire de ce projet une réalité :
+                        </p>
+                        <ul>
+                            <li>La communauté Steam pour son soutien constant</li>
+                            <li>Valve Corporation pour SteamCMD et les outils développeur</li>
+                            <li>Les bêta-testeurs qui ont aidé à améliorer l'outil</li>
+                            <li>Tous les utilisateurs qui partagent leurs retours</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE CONTACT -->
+    <div id="contact" class="page">
+        <div class="container">
+            <div class="header">
+                <h1 data-translate="contact.title">📧 Contact</h1>
+                <p data-translate="contact.subtitle">Contactez-nous pour vos questions, suggestions ou problèmes</p>
+            </div>
+
+            <div class="section">
+                <div class="article-content">
+                    <h2>💬 Nous Contacter</h2>
+                    <p>
+                        Vous avez une question, une suggestion d'amélioration, ou vous rencontrez un problème avec notre outil ? N'hésitez pas à nous contacter ! Nous nous efforçons de répondre à tous les messages dans les plus brefs délais.
+                    </p>
+
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <h3>📧 Email</h3>
+                            <p>Pour toute question technique ou suggestion :</p>
+                            <p><strong>support@steamcmd-generator.com</strong></p>
+                        </div>
+
+                        <div class="contact-method">
+                            <h3>🐛 Signaler un Bug</h3>
+                            <p>Si vous rencontrez un problème avec l'outil :</p>
+                            <p><strong>bugs@steamcmd-generator.com</strong></p>
+                        </div>
+
+                        <div class="contact-method">
+                            <h3>💡 Suggestions</h3>
+                            <p>Pour proposer de nouvelles fonctionnalités :</p>
+                            <p><strong>suggestions@steamcmd-generator.com</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="contact-form">
+                        <h2>📝 Formulaire de Contact</h2>
+                        <form id="contactForm">
+                            <div class="input-group">
+                                <label for="contactName">Nom :</label>
+                                <input type="text" id="contactName" name="name" required>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="contactEmail">Email :</label>
+                                <input type="email" id="contactEmail" name="email" required>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="contactSubject">Sujet :</label>
+                                <select id="contactSubject" name="subject" required>
+                                    <option value="">Sélectionnez un sujet</option>
+                                    <option value="bug">Signaler un bug</option>
+                                    <option value="suggestion">Suggestion d'amélioration</option>
+                                    <option value="help">Demande d'aide</option>
+                                    <option value="other">Autre</option>
+                                </select>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="contactMessage">Message :</label>
+                                <textarea id="contactMessage" name="message" rows="6" required placeholder="Décrivez votre problème ou votre suggestion en détail..."></textarea>
+                            </div>
+
+                            <button type="submit" class="btn">📧 Envoyer le Message</button>
+                        </form>
+                    </div>
+
+                    <div class="faq-section">
+                        <h2>❓ Questions Fréquentes</h2>
+                        
+                        <div class="faq-item">
+                            <h3>Q: L'outil ne fonctionne pas, que faire ?</h3>
+                            <p>R: Vérifiez d'abord que vous avez collé un lien Steam Workshop valide. Si le problème persiste, contactez-nous avec les détails du problème.</p>
+                        </div>
+
+                        <div class="faq-item">
+                            <h3>Q: Pouvez-vous ajouter le support pour mon jeu ?</h3>
+                            <p>R: Nous ajoutons régulièrement de nouveaux jeux. Envoyez-nous une demande avec l'ID du jeu et nous l'ajouterons à notre liste.</p>
+                        </div>
+
+                        <div class="faq-item">
+                            <h3>Q: L'outil est-il gratuit ?</h3>
+                            <p>R: Oui, notre outil est entièrement gratuit et le restera toujours. Aucune inscription n'est requise.</p>
+                        </div>
+
+                        <div class="faq-item">
+                            <h3>Q: Mes données sont-elles sécurisées ?</h3>
+                            <p>R: Absolument. Toutes les opérations se font côté client, vos données ne quittent jamais votre navigateur.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE MENTIONS LÉGALES -->
+    <div id="legal" class="page">
+        <div class="container">
+            <div class="header">
+                <h1 data-translate="legal.title">⚖️ Mentions Légales</h1>
+                <p data-translate="legal.subtitle">Informations légales et conditions d'utilisation</p>
+            </div>
+
+            <div class="section">
+                <div class="article-content">
+                    <h2>📋 Informations Légales</h2>
+                    
+                    <h3>🏢 Éditeur du Site</h3>
+                    <p>
+                        <strong>Nom du site :</strong> SteamCMD Workshop Generator<br>
+                        <strong>URL :</strong> https://steamcmd-generator.com<br>
+                        <strong>Type :</strong> Outil web gratuit<br>
+                        <strong>Responsable de publication :</strong> Équipe SteamCMD Generator
+                    </p>
+
+                    <h3>🌐 Hébergement</h3>
+                    <p>
+                        Ce site est hébergé par GitHub Pages<br>
+                        <strong>GitHub, Inc.</strong><br>
+                        88 Colin P Kelly Jr St<br>
+                        San Francisco, CA 94107, États-Unis
+                    </p>
+
+                    <h2>📄 Conditions d'Utilisation</h2>
+                    
+                    <h3>✅ Acceptation des Conditions</h3>
+                    <p>
+                        En utilisant ce site web, vous acceptez les présentes conditions d'utilisation. Si vous n'acceptez pas ces conditions, veuillez ne pas utiliser ce site.
+                    </p>
+
+                    <h3>🎯 Objet du Service</h3>
+                    <p>
+                        SteamCMD Workshop Generator est un outil gratuit qui permet de générer des commandes SteamCMD pour télécharger des mods depuis Steam Workshop. Ce service est fourni "en l'état" sans garantie d'aucune sorte.
+                    </p>
+
+                    <h3>🔒 Responsabilités</h3>
+                    <p>
+                        L'utilisateur est seul responsable de l'utilisation qu'il fait des commandes générées. L'éditeur du site ne peut être tenu responsable des dommages directs ou indirects résultant de l'utilisation de cet outil.
+                    </p>
+
+                    <h2>🍪 Politique de Confidentialité</h2>
+                    
+                    <h3>📊 Collecte de Données</h3>
+                    <p>
+                        Ce site utilise Google AdSense pour afficher des publicités. Google AdSense peut utiliser des cookies pour personnaliser les annonces. Nous ne collectons aucune donnée personnelle directement.
+                    </p>
+
+                    <h3>🔐 Données Traitées</h3>
+                    <p>
+                        Les URLs Steam Workshop que vous saisissez sont traitées uniquement côté client (dans votre navigateur). Aucune donnée n'est envoyée vers nos serveurs.
+                    </p>
+
+                    <h3>🍪 Cookies</h3>
+                    <p>
+                        Ce site utilise des cookies pour :
+                    </p>
+                    <ul>
+                        <li>Mémoriser vos préférences linguistiques</li>
+                        <li>Améliorer l'expérience utilisateur</li>
+                        <li>Permettre le fonctionnement de Google AdSense</li>
+                    </ul>
+
+                    <h2>📝 Propriété Intellectuelle</h2>
+                    
+                    <h3>©️ Droits d'Auteur</h3>
+                    <p>
+                        Le contenu de ce site (textes, images, code) est protégé par le droit d'auteur. Toute reproduction sans autorisation est interdite.
+                    </p>
+
+                    <h3>🔗 Marques</h3>
+                    <p>
+                        Steam, SteamCMD, et Steam Workshop sont des marques commerciales de Valve Corporation. Ce site n'est pas affilié à Valve Corporation.
+                    </p>
+
+                    <h2>🌍 Législation Applicable</h2>
+                    <p>
+                        Les présentes conditions sont régies par le droit français. Tout litige sera soumis aux tribunaux compétents de Paris.
+                    </p>
+
+                    <h2>📞 Contact</h2>
+                    <p>
+                        Pour toute question concernant ces mentions légales, contactez-nous à :<br>
+                        <strong>legal@steamcmd-generator.com</strong>
+                    </p>
+
+                    <p class="last-updated">
+                        <em>Dernière mise à jour : 17 juillet 2025</em>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Traductions
+        // Gestion des traductions
         const translations = {
-            fr: {
+            'fr': {
+                'nav.home': '🏠 Accueil',
+                'nav.guide': '📚 Guide Complet',
+                'nav.about': 'ℹ️ À Propos',
+                'nav.contact': '📧 Contact',
+                'nav.legal': '⚖️ Mentions Légales',
                 'header.title': '🎮 SteamCMD Workshop Generator',
                 'header.subtitle': 'Générez des commandes SteamCMD pour télécharger des mods Steam Workshop',
                 'generator.title': '🔧 Générateur de Commandes',
@@ -261,47 +756,24 @@ pause</div>
                 'generator.command_output': '📋 Commande SteamCMD :',
                 'generator.copy_btn': '📋 Copier',
                 'generator.success': '✅ Commande générée ! Copiez-la et utilisez-la dans SteamCMD après vous être connecté.',
-                'tutorial.title': '📚 Guide d\'Installation SteamCMD',
-                'tutorial.windows.step1.title': '1. Télécharger SteamCMD',
-                'tutorial.windows.step1.content': 'Téléchargez SteamCMD depuis le site officiel de Valve :',
-                'tutorial.windows.step2.title': '2. Extraire et Installer',
-                'tutorial.windows.step2.content': '• Créez un dossier <code>C:\\steamcmd\\</code><br>• Extrayez le fichier ZIP dans ce dossier<br>• Vous devriez avoir <code>C:\\steamcmd\\steamcmd.exe</code>',
-                'tutorial.windows.step3.title': '3. Premier Lancement',
-                'tutorial.windows.step3.content': 'Ouvrez l\'invite de commande en tant qu\'administrateur et naviguez vers le dossier :',
-                'tutorial.windows.step4.title': '4. Connexion Anonyme',
-                'tutorial.windows.step4.content': 'Une fois SteamCMD lancé, connectez-vous anonymement :',
-                'tutorial.windows.step5.title': '5. Télécharger un Mod',
-                'tutorial.windows.step5.content': 'Utilisez la commande générée ci-dessus. Exemple :',
-                'tutorial.windows.step5.location': '<strong>📁 Emplacement des mods :</strong> <code>C:\\steamcmd\\steamapps\\workshop\\content\\[APP_ID]\\[MOD_ID]\\</code>',
-                'tutorial.linux.step1.title': '1. Installation via le gestionnaire de paquets',
-                'tutorial.linux.step1.ubuntu': '<strong>Ubuntu/Debian :</strong>',
-                'tutorial.linux.step1.arch': '<strong>Arch Linux :</strong>',
-                'tutorial.linux.step2.title': '2. Installation manuelle (si nécessaire)',
-                'tutorial.linux.step3.title': '3. Lancement et Connexion',
-                'tutorial.linux.step4.title': '4. Télécharger un Mod',
-                'tutorial.linux.step4.location': '<strong>📁 Emplacement des mods :</strong> <code>~/steamcmd/steamapps/workshop/content/[APP_ID]/[MOD_ID]/</code>',
-                'tutorial.mac.step1.title': '1. Télécharger SteamCMD',
-                'tutorial.mac.step2.title': '2. Lancement et Connexion',
-                'tutorial.mac.step3.title': '3. Télécharger un Mod',
-                'tutorial.mac.step3.location': '<strong>📁 Emplacement des mods :</strong> <code>~/steamcmd/steamapps/workshop/content/[APP_ID]/[MOD_ID]/</code>',
                 'games.title': '🎮 IDs de Jeux Populaires',
-                'tips.title': '💡 Conseils et Astuces',
-                'tips.warning.title': '⚠️ Important :',
-                'tips.warning.content': 'Certains mods nécessitent d\'être connecté avec un compte Steam au lieu de "anonymous". Utilisez <code>login [username]</code> si le téléchargement anonyme échoue.',
-                'tips.useful_commands': '🔄 Commandes Utiles',
-                'tips.update_mod': '<strong>Mettre à jour un mod :</strong>',
-                'tips.multiple_mods': '<strong>Télécharger plusieurs mods :</strong>',
-                'tips.batch_script': '<strong>Créer un script batch (Windows) :</strong>',
-                'alert.enter_url': '⚠️ Veuillez entrer un lien Steam Workshop',
-                'alert.mod_id_not_found': '❌ ID du mod introuvable dans le lien',
-                'alert.detection_dev': '🔍 Fonctionnalité de détection automatique en développement.\\nPour l\'instant, sélectionnez manuellement le jeu dans la liste déroulante.',
-                'alert.copied': '📋 Commande copiée dans le presse-papiers!'
+                'guide.title': '📚 Guide Complet SteamCMD',
+                'guide.subtitle': 'Tout ce que vous devez savoir sur SteamCMD et le téléchargement de mods',
+                'contact.title': '📧 Contact',
+                'contact.subtitle': 'Contactez-nous pour vos questions, suggestions ou problèmes',
+                'legal.title': '⚖️ Mentions Légales',
+                'legal.subtitle': 'Informations légales et conditions d\'utilisation'
             },
-            en: {
+            'en': {
+                'nav.home': '🏠 Home',
+                'nav.guide': '📚 Complete Guide',
+                'nav.about': 'ℹ️ About',
+                'nav.contact': '📧 Contact',
+                'nav.legal': '⚖️ Legal',
                 'header.title': '🎮 SteamCMD Workshop Generator',
                 'header.subtitle': 'Generate SteamCMD commands to download Steam Workshop mods',
                 'generator.title': '🔧 Command Generator',
-                'generator.workshop_url': 'Steam Workshop Link:',
+                'generator.workshop_url': 'Steam Workshop URL:',
                 'generator.workshop_url_placeholder': 'https://steamcommunity.com/sharedfiles/filedetails/?id=2619072426',
                 'generator.app_id': 'Application ID (optional - auto-detected):',
                 'generator.auto_detect': 'Auto-detect',
@@ -310,206 +782,164 @@ pause</div>
                 'generator.command_output': '📋 SteamCMD Command:',
                 'generator.copy_btn': '📋 Copy',
                 'generator.success': '✅ Command generated! Copy it and use it in SteamCMD after logging in.',
-                'tutorial.title': '📚 SteamCMD Installation Guide',
-                'tutorial.windows.step1.title': '1. Download SteamCMD',
-                'tutorial.windows.step1.content': 'Download SteamCMD from Valve\'s official website:',
-                'tutorial.windows.step2.title': '2. Extract and Install',
-                'tutorial.windows.step2.content': '• Create a folder <code>C:\\steamcmd\\</code><br>• Extract the ZIP file to this folder<br>• You should have <code>C:\\steamcmd\\steamcmd.exe</code>',
-                'tutorial.windows.step3.title': '3. First Launch',
-                'tutorial.windows.step3.content': 'Open command prompt as administrator and navigate to the folder:',
-                'tutorial.windows.step4.title': '4. Anonymous Login',
-                'tutorial.windows.step4.content': 'Once SteamCMD is launched, log in anonymously:',
-                'tutorial.windows.step5.title': '5. Download a Mod',
-                'tutorial.windows.step5.content': 'Use the command generated above. Example:',
-                'tutorial.windows.step5.location': '<strong>📁 Mods location:</strong> <code>C:\\steamcmd\\steamapps\\workshop\\content\\[APP_ID]\\[MOD_ID]\\</code>',
-                'tutorial.linux.step1.title': '1. Install via package manager',
-                'tutorial.linux.step1.ubuntu': '<strong>Ubuntu/Debian:</strong>',
-                'tutorial.linux.step1.arch': '<strong>Arch Linux:</strong>',
-                'tutorial.linux.step2.title': '2. Manual installation (if needed)',
-                'tutorial.linux.step3.title': '3. Launch and Login',
-                'tutorial.linux.step4.title': '4. Download a Mod',
-                'tutorial.linux.step4.location': '<strong>📁 Mods location:</strong> <code>~/steamcmd/steamapps/workshop/content/[APP_ID]/[MOD_ID]/</code>',
-                'tutorial.mac.step1.title': '1. Download SteamCMD',
-                'tutorial.mac.step2.title': '2. Launch and Login',
-                'tutorial.mac.step3.title': '3. Download a Mod',
-                'tutorial.mac.step3.location': '<strong>📁 Mods location:</strong> <code>~/steamcmd/steamapps/workshop/content/[APP_ID]/[MOD_ID]/</code>',
                 'games.title': '🎮 Popular Game IDs',
-                'tips.title': '💡 Tips and Tricks',
-                'tips.warning.title': '⚠️ Important:',
-                'tips.warning.content': 'Some mods require login with a Steam account instead of "anonymous". Use <code>login [username]</code> if anonymous download fails.',
-                'tips.useful_commands': '🔄 Useful Commands',
-                'tips.update_mod': '<strong>Update a mod:</strong>',
-                'tips.multiple_mods': '<strong>Download multiple mods:</strong>',
-                'tips.batch_script': '<strong>Create a batch script (Windows):</strong>',
-                'alert.enter_url': '⚠️ Please enter a Steam Workshop link',
-                'alert.mod_id_not_found': '❌ Mod ID not found in the link',
-                'alert.detection_dev': '🔍 Automatic detection feature in development.\\nFor now, manually select the game from the dropdown.',
-                'alert.copied': '📋 Command copied to clipboard!'
+                'guide.title': '📚 Complete SteamCMD Guide',
+                'guide.subtitle': 'Everything you need to know about SteamCMD and mod downloading',
+                'contact.title': '📧 Contact',
+                'contact.subtitle': 'Contact us for questions, suggestions or problems',
+                'legal.title': '⚖️ Legal',
+                'legal.subtitle': 'Legal information and terms of use'
             }
         };
-
-        let currentLanguage = 'fr';
-
-        // Détection automatique de la langue
-        function detectLanguage() {
-            const browserLang = navigator.language || navigator.userLanguage;
-            const langCode = browserLang.split('-')[0];
-            
-            if (langCode !== 'fr' && translations.en) {
-                return 'en';
-            }
-            return 'fr';
-        }
 
         // Fonction pour changer la langue
         function changeLanguage(lang) {
-            currentLanguage = lang;
-            localStorage.setItem('preferredLanguage', lang);
-            updateTexts();
-            document.documentElement.lang = lang;
-        }
-
-        // Fonction pour mettre à jour tous les textes
-        function updateTexts() {
             const elements = document.querySelectorAll('[data-translate]');
             elements.forEach(element => {
                 const key = element.getAttribute('data-translate');
-                if (translations[currentLanguage] && translations[currentLanguage][key]) {
-                    element.innerHTML = translations[currentLanguage][key];
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
                 }
             });
 
-            // Mettre à jour les placeholders
+            // Gérer les placeholders
             const placeholders = document.querySelectorAll('[data-translate-placeholder]');
             placeholders.forEach(element => {
                 const key = element.getAttribute('data-translate-placeholder');
-                if (translations[currentLanguage] && translations[currentLanguage][key]) {
-                    element.placeholder = translations[currentLanguage][key];
+                if (translations[lang] && translations[lang][key]) {
+                    element.placeholder = translations[lang][key];
                 }
             });
         }
 
-        // Fonction pour obtenir le texte traduit
-        function t(key) {
-            return translations[currentLanguage] && translations[currentLanguage][key] 
-                ? translations[currentLanguage][key] 
-                : key;
+        // Gestion de la navigation
+        function showPage(pageId) {
+            // Masquer toutes les pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Afficher la page sélectionnée
+            document.getElementById(pageId).classList.add('active');
+            
+            // Mettre à jour les liens de navigation
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
         }
 
-        // Initialisation de la langue
-        function initLanguage() {
-            const savedLanguage = localStorage.getItem('preferredLanguage');
-            const detectedLanguage = detectLanguage();
+        // Gestion des onglets
+        function showTab(tabId) {
+            // Masquer tous les contenus d'onglets
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
             
-            currentLanguage = savedLanguage || detectedLanguage;
+            // Afficher l'onglet sélectionné
+            document.getElementById(tabId).classList.add('active');
             
-            document.getElementById('languageSelector').value = currentLanguage;
-            document.documentElement.lang = currentLanguage;
-            updateTexts();
+            // Mettre à jour les boutons d'onglets
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            event.target.classList.add('active');
         }
 
-        const gameAppIds = {
-            'project zomboid': '108600',
-            'garry\'s mod': '4000',
-            'rimworld': '294100',
-            'ark': '346110',
-            'arma': '107410',
-            'cities skylines': '255710',
-            'left 4 dead': '550',
-            'wallpaper engine': '431960',
-            'euro truck': '227300'
-        };
-
-        function extractModId(url) {
+        // Fonction pour extraire l'ID du workshop
+        function extractWorkshopId(url) {
             const match = url.match(/id=(\d+)/);
             return match ? match[1] : null;
         }
 
-        function generateCommand() {
-            const url = document.getElementById('workshopUrl').value.trim();
-            const appIdSelect = document.getElementById('appId');
+        // Fonction pour détecter automatiquement le jeu
+        function detectGame() {
+            const url = document.getElementById('workshopUrl').value;
+            const workshopId = extractWorkshopId(url);
             
-            if (!url) {
-                alert(t('alert.enter_url'));
+            if (!workshopId) {
+                alert('Veuillez entrer un lien Steam Workshop valide');
                 return;
             }
+            
+            // Simulation de détection (dans un vrai projet, cela nécessiterait une API)
+            const appSelect = document.getElementById('appId');
+            appSelect.value = '108600'; // Exemple : Project Zomboid
+            
+            const message = document.createElement('div');
+            message.className = 'success';
+            message.textContent = '✅ Jeu détecté : Project Zomboid (108600)';
+            document.querySelector('.section').appendChild(message);
+            
+            setTimeout(() => {
+                message.remove();
+            }, 3000);
+        }
 
-            const modId = extractModId(url);
-            if (!modId) {
-                alert(t('alert.mod_id_not_found'));
+        // Fonction pour générer la commande
+        function generateCommand() {
+            const url = document.getElementById('workshopUrl').value;
+            const appId = document.getElementById('appId').value;
+            const workshopId = extractWorkshopId(url);
+            
+            if (!workshopId) {
+                alert('Veuillez entrer un lien Steam Workshop valide');
                 return;
             }
-
-            let appId = appIdSelect.value;
-            if (appId === 'auto') {
-                appId = '108600';
-            }
-
-            const command = `workshop_download_item ${appId} ${modId}`;
+            
+            const finalAppId = appId === 'auto' ? '108600' : appId;
+            const command = `workshop_download_item ${finalAppId} ${workshopId}\nquit`;
             
             document.getElementById('commandText').textContent = command;
             document.getElementById('commandOutput').style.display = 'block';
-            
-            document.getElementById('commandOutput').scrollIntoView({ 
-                behavior: 'smooth', 
-                block: 'center' 
-            });
         }
 
-        function detectGame() {
-            alert(t('alert.detection_dev'));
-        }
-
+        // Fonction pour copier la commande
         function copyCommand() {
-            const command = document.getElementById('commandText').textContent;
-            copyText(command);
-        }
-
-        function copyText(text) {
-            navigator.clipboard.writeText(text).then(function() {
-                const btn = event.target;
-                const originalText = btn.textContent;
-                btn.textContent = '✅ ' + (currentLanguage === 'fr' ? 'Copié!' : 'Copied!');
-                btn.style.background = '#28a745';
-                
+            const commandText = document.getElementById('commandText').textContent;
+            navigator.clipboard.writeText(commandText).then(() => {
+                const copyBtn = document.querySelector('.copy-btn');
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = '✅ Copié !';
                 setTimeout(() => {
-                    btn.textContent = originalText;
-                    btn.style.background = '#21262d';
+                    copyBtn.textContent = originalText;
                 }, 2000);
-            }).catch(function(err) {
-                console.error('Erreur lors de la copie: ', err);
-                const textArea = document.createElement('textarea');
-                textArea.value = text;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                
-                alert(t('alert.copied'));
             });
         }
 
-        function showTab(tabName) {
-            const tabContents = document.querySelectorAll('.tab-content');
-            tabContents.forEach(content => content.classList.remove('active'));
-            
-            const tabs = document.querySelectorAll('.tab');
-            tabs.forEach(tab => tab.classList.remove('active'));
-            
-            document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
-        }
-
-        // Permettre la génération en appuyant sur Entrée
-        document.getElementById('workshopUrl').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                generateCommand();
+        // Gestion du formulaire de contact
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Simulation d'envoi
+                    const formData = new FormData(contactForm);
+                    const data = Object.fromEntries(formData);
+                    
+                    alert('Merci pour votre message ! Nous vous répondrons dans les plus brefs délais.');
+                    contactForm.reset();
+                });
             }
         });
 
-        // Initialisation au chargement de la page
+        // Menu mobile
         document.addEventListener('DOMContentLoaded', function() {
-            initLanguage();
+            const navToggle = document.getElementById('navToggle');
+            const navMenu = document.getElementById('navMenu');
+            
+            if (navToggle) {
+                navToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                });
+            }
+        });
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Afficher la page d'accueil par défaut
+            showPage('home');
         });
     </script>
 </body>
